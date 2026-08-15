@@ -1,0 +1,67 @@
+# Decap CMS configuration — Disco Inferno
+# Docs: https://decapcms.org/docs/configuration-options/
+#
+# ONE-TIME SETUP (see HANDOVER.md → "Admin login (Decap CMS)"):
+#   1. Replace  YOUR-GITHUB-USER/YOUR-REPO  below with the club's actual GitHub repo (e.g. discoinferno/disco-inferno-website).
+#   2. Create a GitHub OAuth App and add its Client ID/Secret in Netlify → Site configuration → Access & security → OAuth.
+#   That's it — Netlify provides the login handshake for free; no Netlify Identity needed.
+
+backend:
+  name: github
+  repo: YOUR-GITHUB-USER/YOUR-REPO   # <-- change me
+  branch: main
+  base_url: https://api.netlify.com   # Netlify's free OAuth provider
+  commit_messages:
+    create: "Admin: add {{collection}} “{{slug}}”"
+    update: "Admin: update {{collection}} “{{slug}}”"
+    delete: "Admin: delete {{collection}} “{{slug}}”"
+    uploadMedia: "Admin: upload “{{path}}”"
+    deleteMedia: "Admin: delete “{{path}}”"
+
+# Uncomment the next line while testing on your own computer (no login needed, changes are NOT saved to GitHub):
+# local_backend: true
+
+site_url: https://www.disco-inferno.ca
+display_url: https://www.disco-inferno.ca
+logo_url: /assets/img/logo-disco-inferno-ball.png
+
+media_folder: "assets/uploads"      # where uploaded flyers are stored in the repo
+public_folder: "/assets/uploads"    # how they are referenced on the site
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "Announcement Banner"
+        file: "content/site.json"
+        description: "The bar across the top of every page. Turn it on for a promo, off when it's over."
+        fields:
+          - name: "announcement"
+            label: "Announcement Banner"
+            widget: "object"
+            fields:
+              - { name: "enabled", label: "Show the banner?", widget: "boolean", default: false }
+              - { name: "text", label: "Banner text", widget: "string", hint: "Keep it to one sentence — e.g. “Halloween 30+ Day Party — Sat Oct 24, tickets on sale now.”" }
+              - { name: "link", label: "Link (optional)", widget: "string", required: false, hint: "Paste a full web address, e.g. https://posh.vip/… — or leave blank." }
+              - { name: "link_text", label: "Link button text (optional)", widget: "string", required: false, default: "Get tickets" }
+
+      - name: "events"
+        label: "Upcoming Events"
+        file: "content/events.json"
+        description: "Special events shown on the Home page (next 3) and the Events page. Past events disappear from the site automatically the day after they happen — you don't need to delete them."
+        fields:
+          - name: "events"
+            label: "Events"
+            label_singular: "Event"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.title}}"
+            collapsed: true
+            fields:
+              - { name: "title", label: "Event name", widget: "string" }
+              - { name: "date", label: "Date", widget: "datetime", format: "YYYY-MM-DD", date_format: "MMM D, YYYY", time_format: false, picker_utc: false, hint: "The site hides the event automatically after this date." }
+              - { name: "time", label: "Time (optional)", widget: "string", required: false, hint: "e.g. 10pm – 2am" }
+              - { name: "description", label: "Short description (optional)", widget: "text", required: false }
+              - { name: "image", label: "Flyer image (optional)", widget: "image", required: false, hint: "Square flyers look best (e.g. 1080×1080). Big phone photos are fine — the site scales them down." }
+              - { name: "ticket_link", label: "Ticket link (optional)", widget: "string", required: false, hint: "Paste the full Posh (or other) URL." }
+              - { name: "ticket_text", label: "Ticket button text", widget: "string", required: false, default: "Buy Tickets" }

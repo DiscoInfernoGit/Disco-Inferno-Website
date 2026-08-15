@@ -1,0 +1,7 @@
+Self-hosted web fonts (all licensed under the SIL Open Font License 1.1, free for commercial use):
+
+- Righteous (headings)   — Astigmatic (Brian J. Bonislawsky). https://fonts.google.com/specimen/Righteous
+- Shrikhand (accent)     — Jonny Pinhorn. https://fonts.google.com/specimen/Shrikhand
+- Outfit (body, variable)— Rodrigo Fuenzalida. https://fonts.google.com/specimen/Outfit
+
+Latin subsets downloaded from Google Fonts. Full OFL text: https://openfontlicense.org

@@ -1,0 +1,86 @@
+# Netlify configuration — Disco Inferno (static site, no build step)
+[build]
+  publish = "."
+  command = ""
+
+# Clean URLs (e.g. /events works as well as /events.html)
+[[redirects]]
+  from = "/events"
+  to = "/events.html"
+  status = 200
+[[redirects]]
+  from = "/bottle-service"
+  to = "/bottle-service.html"
+  status = 200
+[[redirects]]
+  from = "/reservations"
+  to = "/reservations.html"
+  status = 200
+[[redirects]]
+  from = "/birthdays"
+  to = "/birthdays.html"
+  status = 200
+[[redirects]]
+  from = "/venue"
+  to = "/venue.html"
+  status = 200
+[[redirects]]
+  from = "/things-to-know"
+  to = "/things-to-know.html"
+  status = 200
+[[redirects]]
+  from = "/photos"
+  to = "/photos.html"
+  status = 200
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+[[redirects]]
+  from = "/hiring"
+  to = "/hiring.html"
+  status = 200
+
+# Old Wix URLs → new pages (so existing links & Google results keep working)
+[[redirects]]
+  from = "/upcoming-events"
+  to = "/events.html"
+  status = 301
+[[redirects]]
+  from = "/nightlife-venue"
+  to = "/venue.html"
+  status = 301
+[[redirects]]
+  from = "/style-code"
+  to = "/things-to-know.html"
+  status = 301
+[[redirects]]
+  from = "/about"
+  to = "/venue.html"
+  status = 301
+
+# Admin (Decap CMS)
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+# Cache: static assets long-lived (filenames don't change), content JSON short-lived so admin edits show quickly
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/assets/uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    Cache-Control = "public, max-age=60, must-revalidate"
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
