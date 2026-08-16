@@ -76,6 +76,7 @@ The admin at `/admin` saves changes straight into the GitHub repo. It needs a on
 
 That's it. No Netlify Identity, no monthly fees.
 
+
 ---
 
 ## 3. Owner's day-to-day: updating the site (no code)

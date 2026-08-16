@@ -8,9 +8,9 @@
 
 backend:
   name: github
-  repo: YOUR-GITHUB-USER/YOUR-REPO   # <-- change me
+  repo: imConfdnt/Disco-Inferno-Website   # <-- change to the club's own repo at handover
   branch: main
-  base_url: https://api.netlify.com   # Netlify's free OAuth provider
+  base_url: https://api.netlify.com   # Netlify's free OAuth provider (GitHub OAuth App installed in Netlify → Access & security → OAuth)
   commit_messages:
     create: "Admin: add {{collection}} “{{slug}}”"
     update: "Admin: update {{collection}} “{{slug}}”"
