@@ -25,6 +25,29 @@
   function get(map, key, fallback) { var v = map && map.get ? map.get(key) : undefined; return (v === undefined || v === null) ? fallback : v; }
   function safeUrl(u) { u = String(u || '').trim(); return /^(https?:\/\/|\/|mailto:|tel:)/i.test(u) ? u : '#'; }
 
+  /* Draft uploads: Decap sometimes asks for a freshly-uploaded image a beat before it registers the
+     draft, caches the miss, and keeps showing the final (not-yet-published) URL — which 404s until
+     Publish. The entry's own mediaFiles list has the temporary blob URL though, so use that first. */
+  var draftUrls = {};   // basename -> blob url (shared with the thumbnail fixer below)
+  function basename(p) { return String(p || '').split('?')[0].split('#')[0].split('/').pop(); }
+  function resolveImage(entry, getAsset, value) {
+    if (!value) return '';
+    var name = basename(value);
+    try {
+      var mf = entry && entry.get && entry.get('mediaFiles');
+      if (mf && mf.forEach) {
+        mf.forEach(function (f) {
+          if (!f || !f.get) return;
+          var url = f.get('url') || f.get('displayURL');
+          if (!url && f.get('file')) { try { url = URL.createObjectURL(f.get('file')); } catch (e) {} }
+          if (url && typeof url === 'string') draftUrls[basename(f.get('path') || f.get('name'))] = url;
+        });
+      }
+    } catch (e) {}
+    if (draftUrls[name] && String(draftUrls[name]).indexOf('blob:') === 0) return draftUrls[name];
+    try { var a = getAsset(value); return a ? String(a) : String(value); } catch (e) { return String(value); }
+  }
+
   /* ---------- Event card: identical structure to the live Events page ---------- */
   function EventCard(props) {
     var ev = props.ev, getAsset = props.getAsset;
@@ -37,8 +60,7 @@
     var linkText = get(ev, 'ticket_text', '') || 'Buy Tickets';
     var isPast = d && d < today();
 
-    var imgSrc = '';
-    if (image) { try { var a = getAsset(image); imgSrc = a ? String(a) : String(image); } catch (e) { imgSrc = String(image); } }
+    var imgSrc = image ? resolveImage(props.entry, getAsset, image) : '';
 
     var when = d ? (DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate() + (time ? ' · ' + time : '')) : (time || 'Pick a date');
 
@@ -78,7 +100,7 @@
           h('p', { className: 'lede' }, upcoming.length + ' upcoming event' + (upcoming.length === 1 ? '' : 's') + ' will show on the site' + (items.length > upcoming.length ? ' · ' + (items.length - upcoming.length) + ' past (hidden)' : '') + '.')
         ),
         items.length
-          ? h('div', { className: 'events pv-events' }, items.map(function (ev, i) { return h(EventCard, { key: i, ev: ev, getAsset: getAsset }); }))
+          ? h('div', { className: 'events pv-events' }, items.map(function (ev, i) { return h(EventCard, { key: i, ev: ev, getAsset: getAsset, entry: entry }); }))
           : h('div', { className: 'events-empty is-on' }, 'No special events posted right now — check back soon, or follow @discoinfernowindsor for announcements.')
       );
     }
@@ -121,6 +143,18 @@
       );
     }
   });
+
+  /* Fix the form's own thumbnail when it hits the same Decap miss: swap in the draft blob, else a friendly placeholder. */
+  var PLACEHOLDER = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200"><rect width="100%" height="100%" rx="14" fill="#261440"/><text x="50%" y="44%" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#ffc53d">Flyer uploaded ✓</text><text x="50%" y="64%" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="12" fill="#d9c8e6">Shows here and on the site once you Publish</text></svg>');
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || img.dataset.diFixed) return;
+    if (!img.closest('[class*="ImageWrapper"], [class*="FileWidget"], [class*="ImageControl"]')) return;
+    img.dataset.diFixed = '1';
+    var alt = draftUrls[basename(img.src)];
+    img.src = (alt && alt.indexOf('blob:') === 0) ? alt : PLACEHOLDER;
+    if (!alt) img.title = 'Uploaded — will appear after you Publish';
+  }, true);
 
   CMS.registerPreviewTemplate('events', EventsPreview);
   CMS.registerPreviewTemplate('site', BannerPreview);
