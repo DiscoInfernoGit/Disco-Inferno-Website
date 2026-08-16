@@ -8,7 +8,7 @@
 
 backend:
   name: github
-  repo: imConfdnt/Disco-Inferno-Website   # <-- change to the club's own repo at handover
+  repo: DiscoInfernoGit/Disco-Inferno-Website
   branch: main
   base_url: https://api.netlify.com   # Netlify's free OAuth provider (GitHub OAuth App installed in Netlify → Access & security → OAuth)
   commit_messages:
