@@ -6,10 +6,16 @@
   <meta name="robots" content="noindex">
   <title>Disco Inferno — Site Admin</title>
   <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+  <link rel="preload" href="/assets/fonts/righteous-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/outfit-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Theme so the admin feels like part of the site (safe to delete: the CMS works without it) -->
+  <link rel="stylesheet" href="/admin/admin.css">
 </head>
 <body>
   <!-- Decap CMS (open source, MIT). Bundle is self-hosted in this folder (decap-cms.js, v3.15.1).
        Config lives in config.yml next to this file. See HANDOVER.md for setup + how the owner logs in. -->
   <script src="/admin/decap-cms.js"></script>
+  <!-- Live previews that mirror the real site (event cards + announcement bar) -->
+  <script src="/admin/admin.js"></script>
 </body>
 </html>

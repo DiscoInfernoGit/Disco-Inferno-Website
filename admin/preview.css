@@ -1,0 +1,25 @@
+/* Styles for the LIVE PREVIEW frame inside /admin (loaded after the site's own styles.css).
+   The event card / banner themselves use the real site classes — these rules only add
+   the frame, headings and helper notes around them. */
+html, body { background: var(--bg) !important; color: var(--ink); min-height: 100%; }
+body { padding: 0; margin: 0; }
+.pv { padding: clamp(18px, 3vw, 34px); }
+.pv-head { margin-bottom: 22px; }
+.pv-head h2 { font-size: clamp(1.4rem, 3vw, 2rem); margin: 4px 0 6px; }
+.pv-head .lede { font-size: 1rem; margin: 0; }
+.pv-events { grid-template-columns: repeat(auto-fill, minmax(260px, 340px)) !important; }
+.pv-event-wrap { display: flex; flex-direction: column; gap: 10px; }
+.pv-event-wrap .event { max-width: 340px; }
+.pv-is-past .event { opacity: .55; filter: grayscale(.4); }
+.pv-placeholder { color: var(--ink-mute); font-style: italic; }
+.pv-note { font-size: .85rem; color: var(--ink-mute); background: var(--bg-2); border: 1px dashed rgba(255,243,228,.2); border-radius: 12px; padding: 10px 12px; max-width: 340px; }
+.pv-note--warn { color: #ffd98a; border-color: rgba(255,197,61,.5); }
+/* banner preview: a slice of the real page so the bar is seen in context */
+.pv-site-frame { border-radius: 18px; overflow: hidden; border: 3px solid rgba(255,243,228,.12); box-shadow: 0 10px 40px -18px rgba(0,0,0,.8); }
+.pv-site-frame.pv-dim .pv-announce { display: none; }
+.pv-fake-nav { display: flex; align-items: center; gap: 16px; padding: 10px 18px; background: rgba(18,10,28,.9); border-bottom: 1px solid rgba(255,243,228,.08); }
+.pv-fake-nav img { height: 44px !important; width: auto !important; flex: 0 0 auto; }
+.pv-fake-links { flex: 1; color: var(--ink-dim); font-weight: 600; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pv-fake-hero { padding: 40px 22px 46px; font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.6rem); background: radial-gradient(circle at 70% 30%, #4b1a8c, #1b0f2b 60%); }
+.pv .announce { display: block; }
+.pv .btn { pointer-events: none; }

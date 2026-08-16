@@ -31,8 +31,6 @@ public_folder: "/assets/uploads"    # how they are referenced on the site
 collections:
   - name: "settings"
     label: "Site Settings"
-    editor:
-      preview: false   # single-pane form - much easier to use on a phone
     files:
       - name: "site"
         label: "Announcement Banner"
@@ -45,8 +43,8 @@ collections:
             fields:
               - { name: "enabled", label: "Show the banner?", widget: "boolean", default: false }
               - { name: "text", label: "Banner text", widget: "string", hint: "Keep it to one sentence — e.g. “Halloween 30+ Day Party — Sat Oct 24, tickets on sale now.”" }
-              - { name: "link", label: "Link (optional)", widget: "string", required: false, hint: "Paste a full web address, e.g. https://posh.vip/… — or leave blank." }
-              - { name: "link_text", label: "Link button text (optional)", widget: "string", required: false, default: "Get tickets" }
+              - { name: "link", label: "Link", widget: "string", required: false, hint: "Paste a full web address, e.g. https://posh.vip/… — or leave blank." }
+              - { name: "link_text", label: "Link button text", widget: "string", required: false, default: "Get tickets" }
 
       - name: "events"
         label: "Upcoming Events"
@@ -62,8 +60,8 @@ collections:
             fields:
               - { name: "title", label: "Event name", widget: "string" }
               - { name: "date", label: "Date", widget: "datetime", format: "YYYY-MM-DD", date_format: "MMM D, YYYY", time_format: false, picker_utc: false, hint: "The site hides the event automatically after this date." }
-              - { name: "time", label: "Time (optional)", widget: "string", required: false, hint: "e.g. 10pm – 2am" }
-              - { name: "description", label: "Short description (optional)", widget: "text", required: false }
-              - { name: "image", label: "Flyer image (optional)", widget: "image", required: false, hint: "Square flyers look best (e.g. 1080×1080). Big phone photos are fine — the site scales them down." }
-              - { name: "ticket_link", label: "Ticket link (optional)", widget: "string", required: false, hint: "Paste the full Posh (or other) URL." }
+              - { name: "time", label: "Time", widget: "string", required: false, hint: "e.g. 10pm – 2am" }
+              - { name: "description", label: "Short description", widget: "text", required: false }
+              - { name: "image", label: "Flyer image", widget: "image", required: false, hint: "Square flyers look best (e.g. 1080×1080). Big phone photos are fine — the site scales them down." }
+              - { name: "ticket_link", label: "Ticket link", widget: "string", required: false, hint: "Paste the full Posh (or other) URL." }
               - { name: "ticket_text", label: "Ticket button text", widget: "string", required: false, default: "Buy Tickets" }

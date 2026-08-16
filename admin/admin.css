@@ -1,0 +1,182 @@
+/* ==========================================================================
+   DISCO INFERNO — admin theme for Decap CMS
+   Re-skins the CMS chrome so /admin feels like an extension of the site
+   (dark aubergine base, magenta/cyan/gold accents, Righteous + Outfit).
+   Decap builds its UI with Emotion; the generated class names carry readable
+   labels (e.g. css-abc123-AppHeader) so we target them with [class*="…"].
+   If a future Decap upgrade renames a label, the worst case is that one
+   element falls back to Decap's default look — nothing breaks functionally.
+   ========================================================================== */
+@font-face { font-family: "Righteous"; src: url("/assets/fonts/righteous-latin.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Outfit"; src: url("/assets/fonts/outfit-latin-var.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+
+:root {
+  --bg: #120a1c; --bg-2: #1b0f2b; --bg-3: #261440; --line: rgba(255,243,228,.10);
+  --ink: #fff3e4; --ink-dim: #d9c8e6; --ink-mute: #a893bd;
+  --pink: #ff2d95; --pink-2: #ff6ab8; --purple: #8b3dff; --purple-2: #b57bff;
+  --cyan: #2fe6ff; --gold: #ffc53d; --orange: #ff7a1f;
+  --font-display: "Righteous", system-ui, sans-serif; --font-body: "Outfit", system-ui, sans-serif;
+}
+
+/* ---- base ---- */
+html, body, #nc-root { background: var(--bg) !important; }
+body, #nc-root, #nc-root * { font-family: var(--font-body) !important; }
+#nc-root { color: var(--ink); }
+#nc-root h1, #nc-root h2, #nc-root h3 { font-family: var(--font-display) !important; font-weight: 400 !important; }
+#nc-root a { color: var(--cyan); }
+#nc-root ::selection { background: var(--pink); color: #fff; }
+
+/* ---- login page ---- */
+[class*="StyledAuthenticationPage"] { background: radial-gradient(1200px 600px at 20% -10%, #4b1a8c 0%, transparent 60%), radial-gradient(900px 500px at 110% 110%, #ff2d95 0%, transparent 55%), var(--bg) !important; }
+[class*="StyledAuthenticationPage"] [class*="PageLogoIcon"], [class*="StyledAuthenticationPage"] img { filter: drop-shadow(0 8px 30px rgba(255,45,149,.45)); }
+[class*="LoginButton"] { background: linear-gradient(135deg, var(--pink), #ff5a3c) !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; padding: 16px 30px !important; font-family: var(--font-display) !important; text-transform: uppercase; letter-spacing: .06em; box-shadow: 0 5px 0 0 #7a0f47, 0 14px 30px -12px rgba(255,45,149,.6) !important; transition: transform .15s; }
+[class*="LoginButton"]:hover { transform: translateY(-2px); }
+[class*="GoBackButtonStyle"] { color: var(--ink-dim) !important; }
+[class*="StyledAuthenticationPage"] > section:last-child, [class*="StyledAuthenticationPage"] a[href*="decapcms.org"] { opacity: .35; }
+
+/* ---- top app header ---- */
+[class*="AppHeader"] { background: rgba(18,10,28,.9) !important; box-shadow: none !important; border-bottom: 1px solid var(--line) !important; backdrop-filter: blur(12px); }
+[class*="AppHeaderContent"] { max-width: 1280px; }
+[class*="AppHeaderButton"], [class*="AppHeaderNavLink"] { color: var(--ink-dim) !important; font-weight: 600 !important; border-radius: 999px !important; }
+[class*="AppHeaderButton"]:hover, [class*="AppHeaderNavLink"]:hover { color: var(--gold) !important; background: rgba(255,243,228,.06) !important; }
+[class*="AppHeaderNavLink"][class*="buttonActive"], [class*="AppHeaderButton"][class*="buttonActive"] { color: var(--pink-2) !important; background: rgba(255,45,149,.10) !important; }
+[class*="AppHeaderNavLink"] svg, [class*="AppHeaderButton"] svg { color: currentColor !important; }
+[class*="AppHeaderSiteLink"] { color: var(--ink-mute) !important; }
+[class*="AppHeaderQuickNewButton"] { background: linear-gradient(135deg, var(--pink), #ff5a3c) !important; color: #fff !important; border-radius: 999px !important; }
+[class*="AvatarDropdownButton"], [class*="AvatarPlaceholderIcon"] { color: var(--ink-dim) !important; }
+[class*="AvatarPlaceholderIcon"] { background: var(--bg-3) !important; }
+
+/* ---- collections page: sidebar + list ---- */
+[class*="SidebarContainer"], [class*="CollectionTopContainer"], [class*="ListCard-card"] { background: var(--bg-2) !important; border: 1px solid var(--line) !important; border-radius: 18px !important; box-shadow: 0 8px 0 0 rgba(0,0,0,.28) !important; color: var(--ink) !important; }
+[class*="ListCardLink"], [class*="ListCardTitle"] { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+[class*="SidebarHeading"], [class*="CollectionTopHeading"] { color: var(--gold) !important; font-family: var(--font-display) !important; letter-spacing: .12em; text-transform: uppercase; font-size: .8rem !important; }
+[class*="SidebarNavLink"] { color: var(--ink-dim) !important; border-radius: 12px !important; }
+[class*="SidebarNavLink"]:hover { color: var(--gold) !important; background: rgba(255,243,228,.06) !important; }
+[class*="SidebarNavLink"][class*="sidebarNavLinkActive"], [class*="sidebarNavLinkActive"] { color: var(--pink-2) !important; background: rgba(255,45,149,.10) !important; border-left: 0 !important; }
+[class*="SidebarNavLink"] svg { color: currentColor !important; }
+[class*="ListCardTitle"], [class*="ListCardLink"] { color: var(--ink) !important; font-family: var(--font-display) !important; font-size: 1.05rem; }
+[class*="ListCard"]:hover { border-color: var(--pink) !important; transform: translateY(-2px); transition: transform .15s; }
+[class*="CollectionTopContainer"] p, [class*="CollectionTopContainer"] span { color: var(--ink-dim) !important; }
+[class*="SearchInput"], [class*="SearchContainer"] input { background: var(--bg-2) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; border-radius: 999px !important; }
+[class*="SearchContainer"] svg { color: var(--ink-mute) !important; }
+[class*="ViewControlsButton"] { color: var(--ink-dim) !important; }
+[class*="AppMainContainer"] { color: var(--ink); }
+[class*="CollectionContainer"], [class*="CollectionMain"], [class*="AppMainContainer"] > div { border-color: transparent !important; box-shadow: none !important; }
+
+/* ---- editor: toolbar ---- */
+[class*="ToolbarContainer"] { background: rgba(18,10,28,.92) !important; border-bottom: 1px solid var(--line) !important; box-shadow: none !important; }
+[class*="ToolbarSection"] { border-color: var(--line) !important; }
+[class*="BackCollection"], [class*="BackArrow"] { color: var(--ink-dim) !important; }
+[class*="BackStatus"], [class*="textBadge"] { font-family: var(--font-display) !important; letter-spacing: .06em; }
+[class*="textBadgeSuccess"] { color: #6df2c1 !important; }
+[class*="ToolbarButton"], [class*="PublishedButton"], [class*="publishedButton"] { border-radius: 999px !important; font-family: var(--font-display) !important; text-transform: uppercase; letter-spacing: .05em; font-size: .8rem !important; }
+[class*="PublishedButton"], [class*="publishedButton"] { background: rgba(47,230,255,.15) !important; color: var(--cyan) !important; border: 1px solid rgba(47,230,255,.4) !important; }
+[class*="ToolbarButton"][class*="default"]:not([class*="published"]) { background: var(--bg-3) !important; color: var(--ink) !important; }
+[class*="ToolbarButton"]:hover { filter: brightness(1.15); }
+[class*="ToolbarSectionMeta"] [class*="button"] { background: transparent !important; color: var(--ink-dim) !important; }
+/* the main "Publish" dropdown/button — Decap uses a bright blue by default */
+[class*="ToolbarContainer"] button[class*="publish"], [class*="ToolbarContainer"] button[class*="Publish"] { background: linear-gradient(135deg, var(--pink), #ff5a3c) !important; color: #fff !important; border: 0 !important; box-shadow: 0 4px 0 0 #7a0f47 !important; }
+[class*="ToolbarContainer"] button[class*="StatusButton"] { background: var(--bg-3) !important; color: var(--ink) !important; }
+
+/* ---- editor: form pane ---- */
+[class*="StyledSplitPane"], [class*="splitPane"] { background: var(--bg) !important; border: 0 !important; box-shadow: none !important; }
+[class*="EditorContainer"], [class*="Editor"] { background: var(--bg) !important; }
+[class*="ControlPaneContainer"] { background: var(--bg) !important; }
+[class*="ControlContainer"], [class*="ListItem-listControlItem"], [class*="SortableListItem"], [class*="ObjectControl"] { background: var(--bg-2) !important; border: 1px solid var(--line) !important; border-radius: 16px !important; color: var(--ink) !important; }
+[class*="ControlContainer"]:focus-within { border-color: var(--cyan) !important; box-shadow: 0 0 0 3px rgba(47,230,255,.15) !important; }
+[class*="FieldLabel"], [class*="fieldLabel"] { background: transparent !important; color: var(--gold) !important; font-family: var(--font-display) !important; letter-spacing: .1em; text-transform: uppercase; font-size: .72rem !important; border-radius: 8px !important; }
+[class*="ControlHint"] { color: var(--ink-mute) !important; }
+[class*="NestedObjectLabel"], [class*="TopBar"] { background: var(--bg-3) !important; color: var(--ink) !important; border-color: var(--line) !important; border-radius: 12px !important; }
+[class*="TopBarButton"], [class*="ExpandButton"] { color: var(--ink-dim) !important; }
+#nc-root input, #nc-root textarea, #nc-root textarea[class], #nc-root select, [class*="TextControl"], [class*="DateTimeControl"] input { background: var(--bg-2) !important; color: var(--ink) !important; border-color: transparent !important; caret-color: var(--pink); }
+#nc-root input::placeholder, #nc-root textarea::placeholder { color: var(--ink-mute) !important; }
+[class*="DateTimeControl"] button { color: var(--ink-dim) !important; }
+/* toggle (Show the banner?) */
+[class*="ToggleContainer"] input:checked + span, [class*="ToggleBackground"][class*="active"] { background: var(--cyan) !important; }
+/* buttons inside widgets (Add event, Choose an image, Remove) */
+[class*="AddButton"], [class*="FileWidgetButton"] { background: var(--bg-3) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; border-radius: 999px !important; font-family: var(--font-display) !important; text-transform: uppercase; letter-spacing: .05em; font-size: .78rem !important; }
+[class*="AddButton"] { background: linear-gradient(135deg, var(--gold), var(--orange)) !important; color: #2b1400 !important; border: 0 !important; box-shadow: 0 4px 0 0 #8a4a00 !important; }
+[class*="AddButton"]:hover, [class*="FileWidgetButton"]:hover { filter: brightness(1.08); }
+[class*="FileWidgetButtonRemove"] { background: transparent !important; color: var(--pink-2) !important; border-color: rgba(255,45,149,.4) !important; }
+[class*="ImageWrapper"], [class*="checkerboard"] { background: var(--bg-3) !important; border-radius: 12px; }
+[class*="StyledImage"] { border-radius: 10px; }
+[class*="DragIconContainer"] { color: var(--ink-mute) !important; }
+
+/* generic: catch any remaining white/light Decap surfaces inside the editor */
+[class*="ControlPaneContainer"] [class*="Container"], [class*="ControlPaneContainer"] [class*="widget"] > div { background-color: transparent; }
+[class*="ControlPaneContainer"] > div > div[class*="css-"] { background: transparent !important; }
+[class*="ControlContainer"] > div[class*="css-"]:not([class*="Label"]):not([class*="Hint"]) { background: transparent !important; }
+[class*="ListItem-listControlItem"], [class*="SortableListItem"] { background: var(--bg-3) !important; }
+[class*="TopBar"], [class*="NestedObjectLabel"] { background: var(--bg-3) !important; }
+[class*="ControlContainer"] { padding-bottom: 6px; }
+
+/* white 2px outlines Decap draws around list widget, date widget, image widget, textareas */
+[class*="ControlPaneContainer"] div[class^="css-"]:not([class*="-"]) { border-color: var(--line) !important; }
+[class*="ControlPaneContainer"] [class*="DateTimeControl"], [class*="ControlPaneContainer"] [class*="ImageWrapper"], [class*="ControlPaneContainer"] textarea, [class*="ControlPaneContainer"] input { border-color: rgba(255,243,228,.14) !important; }
+[class*="ControlPaneContainer"] [class*="DateTimeControl"] { background: var(--bg-2) !important; border-radius: 12px !important; }
+[class*="ControlPaneContainer"] [class*="DateTimeControl"] button { background: var(--bg-3) !important; color: var(--ink-dim) !important; border-radius: 8px !important; border: 0 !important; }
+[class*="ControlPaneContainer"] textarea { border-radius: 12px !important; background: var(--bg-2) !important; color: var(--ink) !important; }
+/* list widget outer box + all field inputs are id="<name>-field-<n>" — Decap gives them a 2px light border */
+[class*="ControlContainer"] > [id$="-field-0"], [class*="ControlContainer"] > [id*="-field-"], #nc-root [id*="-field-"] { border-color: rgba(255,243,228,.14) !important; }
+[class*="ControlContainer"] > div[id*="-field-"] { border-radius: 14px !important; overflow: hidden; }
+/* the expanded body of a list row (unlabeled white box, direct child of the sortable item) */
+[class*="SortableListItem"] > div:not([class*="TopBar"]) { background: var(--bg-2) !important; border-color: var(--line) !important; border-radius: 0 0 14px 14px !important; }
+[class*="SortableListItem"] { overflow: hidden; }
+/* the small vertical bar Decap draws to the right of each field label */
+[class*="FieldLabel"]::after, [class*="fieldLabel"]::after { display: none !important; }
+[class*="FieldLabel"] { border-right: 0 !important; }
+[class*="ControlHint"] { color: var(--ink-dim) !important; opacity: .85; font-size: .82rem !important; }
+
+/* ---- editor: preview pane ---- */
+[class*="PreviewPaneContainer"] { background: var(--bg) !important; border-left: 1px solid var(--line) !important; }
+[class*="PreviewPaneFrame"] { background: var(--bg) !important; color-scheme: dark; }
+[class*="NoPreviewContainer"] { background: var(--bg-2) !important; color: var(--ink-dim) !important; }
+[class*="ExpandButtonContainer"] { border-color: var(--line) !important; }
+[class*="PreviewButtonContainer"] [class*="button"], [class*="RefreshPreviewButton"] { color: var(--ink-dim) !important; }
+
+/* ---- media library modal ---- */
+[class*="StyledModal"], [class*="Modal"] { background: var(--bg-2) !important; color: var(--ink) !important; border-radius: 18px !important; border: 1px solid var(--line) !important; }
+[class*="LibraryTop"], [class*="MediaLibraryHeader"] { color: var(--ink) !important; }
+[class*="CardImageWrapper"], [class*="MediaLibraryCard"] { background: var(--bg-3) !important; border-radius: 12px !important; }
+[class*="MediaLibraryCard"][class*="selected"] { border-color: var(--pink) !important; }
+[class*="UploadButton"], [class*="InsertButton"], [class*="ActionButton"] { border-radius: 999px !important; font-family: var(--font-display) !important; text-transform: uppercase; letter-spacing: .05em; font-size: .78rem !important; }
+[class*="UploadButton"] { background: linear-gradient(135deg, var(--cyan), #29b8ff) !important; color: #071726 !important; border: 0 !important; }
+[class*="InsertButton"] { background: linear-gradient(135deg, var(--pink), #ff5a3c) !important; color: #fff !important; border: 0 !important; }
+[class*="DeleteButton"] { color: var(--pink-2) !important; }
+
+/* ---- dropdown menus, toasts ---- */
+[class*="DropdownList"], [class*="StyledDropdownList"] { background: var(--bg-3) !important; border: 1px solid var(--line) !important; border-radius: 14px !important; box-shadow: 0 16px 40px -14px rgba(0,0,0,.8) !important; }
+[class*="DropdownItem"], [class*="StyledDropdownItem"] { color: var(--ink) !important; }
+[class*="DropdownItem"]:hover, [class*="StyledDropdownItem"]:hover { background: rgba(255,45,149,.15) !important; color: var(--pink-2) !important; }
+[class*="Toast"] { border-radius: 14px !important; font-family: var(--font-body) !important; }
+
+/* ---- scrollbars ---- */
+#nc-root ::-webkit-scrollbar { width: 10px; height: 10px; }
+#nc-root ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 999px; border: 2px solid var(--bg); }
+#nc-root ::-webkit-scrollbar-track { background: transparent; }
+
+/* ---- small screens: single column, no side-by-side preview ----
+   Decap's split editor has a fixed minimum width (~800px). On phones we hide the
+   preview pane and let the form take the full width; the preview is still one tap
+   away on tablets/desktops. */
+@media (max-width: 799px) {
+  [class*="AppHeaderContent"] { padding: 0 8px; }
+  [class*="AppHeaderNavLink"] span, [class*="AppHeaderButton"] span { font-size: .8rem; }
+  html, body, #nc-root { overflow-x: hidden !important; }
+  [class*="EditorContainer"], [class*="ToolbarContainer"] { min-width: 0 !important; width: 100% !important; }
+  [class*="ToolbarSectionMain"] { min-width: 0 !important; }
+  /* react-split-pane: first child = form pane (inline width:50%), later children = resizer + preview */
+  [class*="StyledSplitPane"] { display: block !important; min-width: 0 !important; width: 100% !important; }
+  [class*="StyledSplitPane"] > div:first-child { width: 100% !important; min-width: 0 !important; max-width: 100% !important; flex: 1 1 100% !important; }
+  [class*="StyledSplitPane"] > span, [class*="StyledSplitPane"] > div:not(:first-child) { display: none !important; }
+  [class*="PreviewPaneContainer-ControlPaneContainer"], [class*="ControlPaneContainer"] { width: 100% !important; max-width: 100% !important; min-width: 0 !important; overflow-x: hidden !important; }
+  [class*="ControlPaneContainer"]:not([class*="PreviewPaneContainer"]) { padding-left: 10px !important; padding-right: 10px !important; }
+  /* toolbar: give the publish button room; hide the collection breadcrumb text */
+  [class*="ToolbarSectionBackLink"] { flex: 0 0 auto !important; max-width: 46% !important; }
+  [class*="BackCollection"] { display: none !important; }
+  [class*="ToolbarSectionMain"] { flex: 1 1 auto !important; justify-content: flex-end; }
+  [class*="ToolbarSectionMeta"] { flex: 0 0 auto !important; }
+  [class*="ViewControls"], [class*="PreviewButtonContainer"] { display: none !important; }
+  [class*="ToolbarContainer"] { flex-wrap: wrap; }
+  [class*="AppHeaderSiteLink"] { display: none !important; }
+}
