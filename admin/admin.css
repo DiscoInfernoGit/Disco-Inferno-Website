@@ -31,6 +31,10 @@ body, #nc-root, #nc-root * { font-family: var(--font-body) !important; }
 [class*="StyledAuthenticationPage"] [class*="PageLogoIcon"], [class*="StyledAuthenticationPage"] img { filter: drop-shadow(0 8px 30px rgba(255,45,149,.45)); }
 [class*="LoginButton"] { background: linear-gradient(135deg, var(--pink), #ff5a3c) !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; padding: 16px 30px !important; font-family: var(--font-display) !important; text-transform: uppercase; letter-spacing: .06em; box-shadow: 0 5px 0 0 #7a0f47, 0 14px 30px -12px rgba(255,45,149,.6) !important; transition: transform .15s; }
 [class*="LoginButton"]:hover { transform: translateY(-2px); }
+/* the GitHub icon inside the login button: Decap wraps it in its own pill — flatten that */
+[class*="LoginButton"] [class*="IconWrapper"], [class*="LoginButton"] [class*="CustomIconWrapper"], [class*="LoginButton"] > span:first-child, [class*="LoginButton"]::before { background: transparent !important; box-shadow: none !important; border: 0 !important; border-radius: 0 !important; padding: 0 !important; margin: 0 10px 0 0 !important; width: auto !important; height: auto !important; display: inline-flex !important; align-items: center; }
+[class*="LoginButton"] svg { width: 20px !important; height: 20px !important; fill: #fff !important; color: #fff !important; }
+[class*="LoginButton"] { display: inline-flex !important; align-items: center; justify-content: center; gap: 0; }
 [class*="GoBackButtonStyle"] { color: var(--ink-dim) !important; }
 [class*="StyledAuthenticationPage"] > section:last-child, [class*="StyledAuthenticationPage"] a[href*="decapcms.org"] { opacity: .35; }
 
