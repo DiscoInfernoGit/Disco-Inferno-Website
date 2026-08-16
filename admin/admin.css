@@ -118,6 +118,9 @@ body, #nc-root, #nc-root * { font-family: var(--font-body) !important; }
 [class*="ControlPaneContainer"] div[class^="css-"]:not([class*="-"]) { border-color: var(--line) !important; }
 [class*="ControlPaneContainer"] [class*="DateTimeControl"], [class*="ControlPaneContainer"] [class*="ImageWrapper"], [class*="ControlPaneContainer"] textarea, [class*="ControlPaneContainer"] input { border-color: rgba(255,243,228,.14) !important; }
 [class*="ControlPaneContainer"] [class*="DateTimeControl"] { background: var(--bg-2) !important; border-radius: 12px !important; }
+/* native date input: render the calendar icon + popup in dark mode so it is visible */
+#nc-root input[type="date"], #nc-root input[type="datetime-local"], #nc-root input[type="time"], [class*="DateTimeControl"] input { color-scheme: dark; }
+#nc-root input[type="date"]::-webkit-calendar-picker-indicator, #nc-root input[type="datetime-local"]::-webkit-calendar-picker-indicator, [class*="DateTimeControl"] input::-webkit-calendar-picker-indicator { filter: invert(1) brightness(1.4) sepia(1) saturate(4) hue-rotate(5deg); cursor: pointer; opacity: .95; width: 18px; height: 18px; }
 [class*="ControlPaneContainer"] [class*="DateTimeControl"] button { background: var(--bg-3) !important; color: var(--ink-dim) !important; border-radius: 8px !important; border: 0 !important; }
 [class*="ControlPaneContainer"] textarea { border-radius: 12px !important; background: var(--bg-2) !important; color: var(--ink) !important; }
 /* list widget outer box + all field inputs are id="<name>-field-<n>" — Decap gives them a 2px light border */
