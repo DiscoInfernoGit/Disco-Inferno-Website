@@ -31,6 +31,8 @@ public_folder: "/assets/uploads"    # how they are referenced on the site
 collections:
   - name: "settings"
     label: "Site Settings"
+    editor:
+      preview: false   # single-pane form - much easier to use on a phone
     files:
       - name: "site"
         label: "Announcement Banner"
